@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+
+      dockerfile: .docker/Dockerfile
+    image: 'php_apache'
+    container_name: 'laravel-ssh_webserver'
+    ports:
+      - '8088:80'
+    volumes:
+      - './:/var/www/html'
+  db:
+    image: mysql
+    container_name: 'laravel-ssh_db'
+    restart: always
+    ports:
+      - '33666:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root@laravel-sshDB'
+      MYSQL_DATABASE: 'laravel-ssh'
+      MYSQL_USER: 'laravel-ssh'
+      MYSQL_PASSWORD: 'laravel-ssh@laravel-sshDB'
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: 'laravel-ssh-selenium'
+    restart: 'always'
+    ports:
+    - '14445:24444'
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: 'laravel-ssh-mailhog'
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+  
+
+    
