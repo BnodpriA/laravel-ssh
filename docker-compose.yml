@@ -8,7 +8,7 @@ services:
     image: 'php_apache'
     container_name: 'laravel-ssh_webserver'
     ports:
-      - '8088:80'
+      - '8888:80'
     volumes:
       - './:/var/www/html'
   db:
@@ -16,7 +16,7 @@ services:
     container_name: 'laravel-ssh_db'
     restart: always
     ports:
-      - '33666:3306'
+      - '33667:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 'root@laravel-sshDB'
       MYSQL_DATABASE: 'laravel-ssh'
@@ -27,14 +27,14 @@ services:
     container_name: 'laravel-ssh-selenium'
     restart: 'always'
     ports:
-    - '14445:24444'
+    - '14446:24444'
   mailhog:
     image: mailhog/mailhog:latest
     container_name: 'laravel-ssh-mailhog'
     restart: always
     ports:
-      - 1025:1025
-      - 8025:8025
+      - 1026:1025
+      - 8026:8025
   
 
     
