@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-
+// require_once base_path('vendor/spatie/ssh/src/Ssh.php');
+use Spatie\Ssh\Ssh;
+use App\Http\Controllers\CommandSenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $ssh = new Spatie\Ssh;
-    $user = 'root';
-    $host = '127.0.0.1';
-    $port = 49155;
-
-    $process = $ssh->create($user, $host, $port);
-    if ($process) {
-        return 'connected';
-    } else {
-        return 'failed to connect';
-    }
-    
     return view('welcome');
 });
+Route::post('/send', [CommandSenderController::class, 'sendCommand'])->name('send');

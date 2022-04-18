@@ -21,63 +21,14 @@
         </style>
     </head>
     <body>
-        <div class="form">
-            <form action="{{ route('send') }}" method="post" enctype="application/x-www-form-urlencoded" id="command-form">
-                @csrf
-                <input type="text" name="command" id="command" class="form-control" hidden>
-                <input type="submit" value="Submit" id="command-button" hidden>
-            </form>
-        </div>
+        
         <div id="terminal"></div>
         <script src="{{ mix('/js/app.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"></script>
         <script>
           var term = new Terminal();
           term.open(document.getElementById('terminal'));
-          var shellprompt = '$ ';
-            term.prompt = function() {
-                term.write('\r\n' + shellprompt);
-            };
-            term.prompt();
-            term.setOption('cursorBlink', true);
-            var cmd = '';
-
-            term.on('key', function (key, ev) {
-            var printable = (
-                !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
-            );
-
-            if (ev.keyCode == 13) {
-                if(cmd === 'clear')
-                {
-                    term.clear();
-                }
-                //set value of id command to cmd
-                document.getElementById('command').value = cmd;
-
-                //submit form
-                document.getElementById('command-button').form.submit();
-                
-                console.log(cmd);
-                cmd = '';
-                term.prompt();
-            } else if (ev.keyCode == 8) {
-                // Do not delete the prompt
-                console.log(term.rows);
-                if (term.x > 2) {
-                term.write('\b \b');
-                }
-            } else if (printable) {
-                cmd += key;
-                term.write(key);
-            }
-            });
-
-            term.on('paste', function (data, ev) {
-            term.write(data);
-            });
-
-          
+          term.write({!! $output !!});
+        console.log({!! $output !!});
         </script>
     </body>
 </html>
