@@ -21,10 +21,9 @@ class CommandSenderController extends Controller
             return view('result')->with('output', json_encode($output));
             // return $process->getOutput();
             // return 'connected';
-            
-            //return $ouput as json 
-            //  return response()->json(['output' => $output]);
 
+            //return $ouput as json
+            //  return response()->json(['output' => $output]);
         } else {
             return 'failed to connect';
         }
