@@ -21,13 +21,13 @@
         </style>
     </head>
     <body>
-        <div class="form">
+        {{-- <div class="form">
             <form action="{{ route('send') }}" method="post" enctype="application/x-www-form-urlencoded" id="command-form">
                 @csrf
                 <input type="text" name="command" id="command" class="form-control" hidden>
                 <input type="submit" value="Submit" id="command-button" hidden>
             </form>
-        </div>
+        </div> --}}
         <div id="terminal"></div>
         <script src="{{ mix('/js/app.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"></script>
@@ -51,14 +51,48 @@
                 if(cmd === 'clear')
                 {
                     term.clear();
+                } else {
+                    async function loadOutput() {
+                    const response = await fetch('send/' + cmd);
+                    console.log(response);
+                    const output = await response.json();
+                    console.log('here'); 
+                    }
+                    loadOutput();
+                    
+
+                    //term.write('\r\n' + shellprompt + cmd);
+                    // document.getElementById('command').value = cmd;
+                    // document.getElementById('command-button').click();
+                    //now fetch the response
+/*
+
+                  fetch('/send/'+ cmd)
+                  .then(response => {
+                      console.log('here');
+                  })
+                  .then((data) => {
+                        console.log(data);
+                    })
+
+                    var output = {!! $output !!};
+                    // console.log(@json($output));
+                    // if ({!! $output !!} != 'false') {
+                    //     console.log('here');
+                        term.write('\r\n' + {!! $output !!});
+                    // }
+*/
                 }
+
+
+
                 //set value of id command to cmd
-                document.getElementById('command').value = cmd;
+               // document.getElementById('command').value = cmd;
 
                 //submit form
-                document.getElementById('command-button').form.submit();
-                
-                console.log(cmd);
+                //document.getElementById('command-button').form.submit();
+                // term.write('\r\n' + {!! $output !!});
+               // console.log(cmd);
                 cmd = '';
                 term.prompt();
             } else if (ev.keyCode == 8) {
