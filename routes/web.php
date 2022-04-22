@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // require_once base_path('vendor/spatie/ssh/src/Ssh.php');
 use Spatie\Ssh\Ssh;
 use App\Http\Controllers\CommandSenderController;
+use App\Http\Controllers\VncController;
 use DivineOmega\SSHConnection\SSHConnection;
 
 /*
@@ -35,3 +36,5 @@ Route::get('/', function () {
     //return view('welcome');
 });
 Route::post('/send/{cmd}', [CommandSenderController::class, 'sendCommand'])->name('send');
+Route::get('/vnc', [VncController::class, 'getVnc'])->name('vnc.get');
+Route::post('/vnc/send', [VncController::class, 'sendVnc'])->name('vnc.send');

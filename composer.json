@@ -12,6 +12,7 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "mikehaertl/php-shellcommand": "^1.6",
         "spatie/ssh": "^1.7"
     },
     "require-dev": {
