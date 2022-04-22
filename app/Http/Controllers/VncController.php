@@ -18,9 +18,7 @@ class VncController extends Controller
         $command->setStdIn('./hello.sh');
         dd($command->execute());
         if ($command->execute()) {
-            
             echo $command->getOutput();
-
         } else {
             echo $command->getError();
             $exitCode = $command->getExitCode();
